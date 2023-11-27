@@ -4,7 +4,9 @@ axios.get(url)
     .then(function (response) {
         data = response.data.data;
         // 渲染出陣列資料
+        renderC3();
         render();
+
     })
     .catch(function (error) {
         // handle error
@@ -16,7 +18,6 @@ const elTicketCardArea = document.querySelector('.ticketCard-area');
 
 function render(location) {
     let str = '';
-    // 新增篩選資料後的陣列，第五週錯誤修正
     let filterdData = [];
     // filter
     const filterData = data.filter(function (item) {
@@ -31,47 +32,6 @@ function render(location) {
         }
     });
 
-    // function renderC3() {
-    //     let totalObj = {};
-    //     filterdData.forEach(function (item) {
-    //         if (totalObj[item.area] == undefined) {
-    //             totalObj[item.area] = 1;
-    //         } else {
-    //             totalObj[item.area] += 1;
-    //         }
-    //     })
-    //     console.log(totalObj);
-    //     // 轉成C3要的格式，陣列資料
-    //     let newData = [];
-    //     let areaAry = Object.keys(totalObj);
-    //     // console.log(areaAry);
-    //     areaAry.forEach(function (item) {
-    //         let ary = [];
-    //         ary.push(item);
-    //         ary.push(totalObj[item]);
-    //         newData.push(ary);
-    //     })
-    //     console.log(c3Data);
-    //     const chart = c3.generate({
-    //         bindto: "#chart", // HTML 元素綁定
-    //         data: {
-    //             columns: newData, // 資料存放
-    //             type: "donut",
-    //             onclick: function (d, i) {
-    //                 console.log("onclick", d, i);
-    //             },
-    //             onmouseover: function (d, i) {
-    //                 console.log("onmouseover", d, i);
-    //             },
-    //             onmouseout: function (d, i) {
-    //                 console.log("onmouseout", d, i);
-    //             }
-    //         },
-    //         donut: {
-    //             title: "套票地區比重"
-    //         }
-    //     });
-    // }
 
     // 判斷完的資料塞回str裡面
     filterData.forEach(function (item) {
@@ -111,7 +71,50 @@ function render(location) {
     elResultCount.textContent = `本次搜尋共 ${filterdData.length} 筆資料`;
 
 }
-
+ function renderC3() {
+        let totalObj = {};
+        data.forEach(function (item) {
+            if (totalObj[item.area] == undefined) {
+                totalObj[item.area] = 1;
+            } else {
+                totalObj[item.area] += 1;
+            }
+        })
+        console.log(totalObj);
+        // 轉成C3要的格式，陣列資料
+        let newData = [];
+        let areaAry = Object.keys(totalObj);
+        // console.log(areaAry);
+        areaAry.forEach(function (item) {
+            let ary = [];
+            ary.push(item);
+            ary.push(totalObj[item]);
+            newData.push(ary);
+        })
+        console.log(newData);
+        const chart = c3.generate({
+            bindto: "#chart", // HTML 元素綁定
+            data: {
+                columns: newData, // 資料存放
+                type: "donut",
+                onclick: function (d, i) {
+                    console.log("onclick", d, i);
+                },
+                onmouseover: function (d, i) {
+                    console.log("onmouseover", d, i);
+                },
+                onmouseout: function (d, i) {
+                    console.log("onmouseout", d, i);
+                }
+            },
+            donut: {
+                title: "套票地區比重"
+            },
+            color:{
+                pattern: ["#E68618", "#F280CA", "#26BFC7", /* add more colors as needed */]
+              }
+        });
+    }
 
 // data.push('新增一筆');
 const elAddBtn = document.querySelector('.addTicket-btn');
@@ -139,6 +142,7 @@ function addCard() {
     // console.log(data);
     // 重新渲染整個列表
     render();
+    renderC3();
     // 新增完清空
     const elForm = document.querySelector('.addTicket-form');
     elForm.reset();
