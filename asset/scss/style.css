@@ -243,6 +243,7 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  justify-content: space-between;
   max-width: 920px;
   margin: 0 auto;
   padding: 50px 0;
@@ -250,6 +251,17 @@ body {
 
 .search-area p {
   color: #818a91;
+}
+#chart {
+  width: 200px;
+}
+.search-area #chart .c3-chart-arcs-title {
+  color: #4b4b4b;
+  font-size: 14px;
+}
+.regionSearchWrap {
+  display: flex;
+  width: 50%;
 }
 
 @media (max-width: 768px) {
@@ -265,7 +277,7 @@ body {
 }
 
 .regionSearch {
-  width: 27.5%;
+  width: 50%;
   min-height: 38px;
   text-indent: 0.5rem;
   color: #818a91;
@@ -282,7 +294,11 @@ body {
     width: 80%;
   }
 }
-
+@media (max-width: 576px) {
+  .regionSearchWrap {
+    flex-direction: column;
+  }
+}
 .ticketCard-area {
   display: -webkit-box;
   display: -ms-flexbox;

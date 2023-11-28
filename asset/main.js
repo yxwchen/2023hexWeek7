@@ -71,50 +71,51 @@ function render(location) {
     elResultCount.textContent = `本次搜尋共 ${filterdData.length} 筆資料`;
 
 }
- function renderC3() {
-        let totalObj = {};
-        data.forEach(function (item) {
-            if (totalObj[item.area] == undefined) {
-                totalObj[item.area] = 1;
-            } else {
-                totalObj[item.area] += 1;
+
+function renderC3() {
+    let totalObj = {};
+    data.forEach(function (item) {
+        if (totalObj[item.area] == undefined) {
+            totalObj[item.area] = 1;
+        } else {
+            totalObj[item.area] += 1;
+        }
+    })
+    console.log(totalObj);
+    // 轉成C3要的格式，陣列資料
+    let newData = [];
+    let areaAry = Object.keys(totalObj);
+    // console.log(areaAry);
+    areaAry.forEach(function (item) {
+        let ary = [];
+        ary.push(item);
+        ary.push(totalObj[item]);
+        newData.push(ary);
+    })
+    console.log(newData);
+    const chart = c3.generate({
+        bindto: "#chart", // HTML 元素綁定
+        data: {
+            columns: newData, // 資料存放
+            type: "donut",
+            onclick: function (d, i) {
+                console.log("onclick", d, i);
+            },
+            onmouseover: function (d, i) {
+                console.log("onmouseover", d, i);
+            },
+            onmouseout: function (d, i) {
+                console.log("onmouseout", d, i);
             }
-        })
-        console.log(totalObj);
-        // 轉成C3要的格式，陣列資料
-        let newData = [];
-        let areaAry = Object.keys(totalObj);
-        // console.log(areaAry);
-        areaAry.forEach(function (item) {
-            let ary = [];
-            ary.push(item);
-            ary.push(totalObj[item]);
-            newData.push(ary);
-        })
-        console.log(newData);
-        const chart = c3.generate({
-            bindto: "#chart", // HTML 元素綁定
-            data: {
-                columns: newData, // 資料存放
-                type: "donut",
-                onclick: function (d, i) {
-                    console.log("onclick", d, i);
-                },
-                onmouseover: function (d, i) {
-                    console.log("onmouseover", d, i);
-                },
-                onmouseout: function (d, i) {
-                    console.log("onmouseout", d, i);
-                }
-            },
-            donut: {
-                title: "套票地區比重"
-            },
-            color:{
-                pattern: ["#E68618", "#F280CA", "#26BFC7", /* add more colors as needed */]
-              }
-        });
-    }
+        },
+        donut: {
+            title: "套票地區比重"
+        },
+        color: {
+            pattern: ["#5150D3", "#E68619", "#25C0C7", /* add more colors as needed */ ]
+        }
+    });
+}
 
 // data.push('新增一筆');
 const elAddBtn = document.querySelector('.addTicket-btn');

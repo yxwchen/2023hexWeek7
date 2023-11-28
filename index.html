@@ -119,15 +119,18 @@
     <section class="main-content">
         <!-- 搜尋區 -->
         <div class="search-area">
-            <select name="" class="regionSearch">
-                <option value="地區搜尋" disabled selected hidden>地區搜尋</option>
-                <option value="">全部地區</option>
-                <option value="台北">台北</option>
-                <option value="台中">台中</option>
-                <option value="高雄">高雄</option>
-            </select>
-            <p id="searchResult-text">本次搜尋共 3 筆資料</p>
-            <div id="chart" style="width:250px"></div>
+            <div class="regionSearchWrap">
+                <select name="" class="regionSearch">
+                    <option value="地區搜尋" disabled selected hidden>地區搜尋</option>
+                    <option value="">全部地區</option>
+                    <option value="台北">台北</option>
+                    <option value="台中">台中</option>
+                    <option value="高雄">高雄</option>
+                </select>
+
+                <p id="searchResult-text">本次搜尋共 3 筆資料</p>
+            </div>
+            <div id="chart"></div>
         </div>
         <!-- 套票卡片區 -->
         <ul class="ticketCard-area">
