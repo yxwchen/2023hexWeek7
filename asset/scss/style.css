@@ -256,7 +256,8 @@ body {
   width: 200px;
 }
 .search-area #chart .c3-chart-arcs-title {
-  color: #4b4b4b;
+  fill: #4b4b4b;
+  /* 不能用color 因為圖表是svg 所以要用fill */
   font-size: 14px;
 }
 .regionSearchWrap {

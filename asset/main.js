@@ -108,8 +108,16 @@ function renderC3() {
                 console.log("onmouseout", d, i);
             }
         },
+        size: {
+            width: 200,
+            height: 200,
+        },
         donut: {
-            title: "套票地區比重"
+            title: "套票地區比重",
+            width: 12, // 調整 donut 的粗細
+            label: {
+                show: false, // 隱藏百分比文字
+            },
         },
         color: {
             pattern: ["#5150D3", "#E68619", "#25C0C7", /* add more colors as needed */ ]
